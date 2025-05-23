@@ -1,0 +1,178 @@
+.league-list {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.league-list h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+/* Flex container for the list of leagues */
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* Individual league card */
+.league {
+    background-color: rgb(131, 252, 252);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.league:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.league img {
+    max-width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.league h3 {
+    font-size: 1.2rem;
+    color: #222;
+    margin: 0.5rem 0;
+}
+
+.league label {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.league-btn{
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.league-create {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: rgb(99, 98, 98);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.league-create:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.league-create h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #74f4f8;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* Form styling */
+.league-create form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Form field paragraphs (Django's form.as_p output) */
+.league-create form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.league-create form label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #222;
+    font-size: 0.95rem;
+}
+
+
+
+
+/* Responsive Styles */
+
+/* Desktop (1200px and above) */
+@media (min-width: 1200px) {
+    .league {
+        width: 250px;
+    }
+
+    .league-list h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Tablet (768px to 1200px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .league {
+        width: 220px;
+    }
+
+    .league-list h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile (below 768px) */
+@media (max-width: 768px) {
+    .list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .league {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .league-list h1 {
+        font-size: 1.8rem;
+    }
+
+    .league-btn {
+        font-size: 0.8rem;
+    }
+    .league-create {
+        margin: 1rem;
+        padding: 1.5rem;
+        width: 90%;
+        max-width: 350px;
+    }
+    
+    .league-create h1 {
+        font-size: 1.8rem;
+    }
+    
+    .league-create form {
+        gap: 1rem;
+    }
+    
+    .league-create .btn {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+}

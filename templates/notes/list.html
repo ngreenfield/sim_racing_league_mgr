@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Leagues
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="note-list">
+
+<h1>Leagues</h1>
+
+    <div class="list">
+        {% for note in note_list %}
+            <div class="note">
+
+                {% if note.image %}
+                <img src="{{ note.image.url }}">
+                {% endif %}
+
+                <h3>{{ note.title }}</h3>
+                <label>{{ note.created_on }}</label>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

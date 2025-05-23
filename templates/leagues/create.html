@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Create League{% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/leagues.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="league-create">
+
+    <h1>Create a new league</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-success">Save League</button>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Leagues
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/leagues.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="league-list">
+    <h1>Leagues!</h1>
+    <div class="league-btn">
+        <a class="btn btn-primary" href="{% url 'league_create' %}">Create League</a>
+    </div>
+
+    <div class="list">
+        {% for league in object_list %}
+            <div class="league">
+
+                {% if league.image %}
+                    <img src="{{ league.image.url }}">
+                {% endif %}
+
+                <h3>{{ league.title }}</h3>
+                <label>Created: {{ league.created_on }}</label>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Home
 {% endblock title %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
 {% block content %}
 <h1>Sim Racing League Hub</h1>
 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur assumenda dolor rem quod repellat culpa unde exercitationem velit. Praesentium dolorem commodi minus voluptatum iure, delectus, neque ratione debitis perferendis aperiam laborum nobis expedita suscipit esse! Deleniti porro obcaecati nobis rem sunt ut aut dolor debitis, iusto recusandae praesentium quos omnis iste culpa consequatur molestiae eius quibusdam voluptatem non cupiditate saepe quia. Laboriosam quasi nulla, soluta quaerat velit illo. A cum suscipit architecto unde deleniti qui ipsam quisquam dolorum maiores ipsa fugit temporibus blanditiis repellendus minus vel aspernatur harum molestiae, consequatur fugiat? Eos dicta optio magni libero nihil, aut voluptatem ipsum. Quisquam cupiditate laboriosam ipsa quam nemo! Maxime quam, deserunt cupiditate nisi facilis excepturi ea in labore fugiat quidem nulla iusto, vero, neque minus aliquid doloremque illum iure quod quas ratione expedita perspiciatis hic! Molestias, sint eum? Distinctio fuga odio hic sit cum, in vitae aliquam. Ad necessitatibus impedit nihil?</p>
+
+<div class="home-img">
+    <img src="/static/img/homepageracing.jpg" alt="">
+</div>
 
 {% endblock content %}
