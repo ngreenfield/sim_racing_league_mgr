@@ -68,7 +68,7 @@
     margin: 2rem auto;
     padding: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: rgb(99, 98, 98);
+    background: rgb(39, 39, 39);
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -106,7 +106,7 @@
 .league-create form label {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #222;
+    color: #fafafa;
     font-size: 0.95rem;
 }
 
