@@ -1,85 +1,223 @@
+/* League List Container */
 .league-list {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 1rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .league-list h1 {
-    text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #ffffff;
-}
-
-/* Flex container for the list of leagues */
-.list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
-}
-
-/* Individual league card */
-.league {
-    background-color: rgb(131, 252, 252);
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1rem;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    color: #c7fffa;
+    margin-bottom: 1rem;
     text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* Create League Button */
+.league-btn {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.league-btn .btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.league-btn .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* League Cards Grid */
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* League Card Link (removes default link styling) */
+.league-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+/* Individual League Card */
+.league {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e1e8ed;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.league::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effects */
 .league:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
 }
 
+.league:hover::before {
+    transform: scaleX(1);
+}
+
+/* Active/Click Effect */
+.league:active {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* League Image */
 .league img {
-    max-width: 100%;
-    height: 160px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
 }
 
+.league:hover img {
+    transform: scale(1.02);
+}
+
+/* League Title */
 .league h3 {
-    font-size: 1.2rem;
-    color: #222;
-    margin: 0.5rem 0;
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+    line-height: 1.3;
+    flex-grow: 1;
 }
 
+/* League Created Date */
 .league label {
+    color: #7f8c8d;
     font-size: 0.9rem;
-    color: #777;
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.league-btn{
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    text-align: center;
+/* Responsive Design */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .league-list {
+        padding: 1.5rem;
+    }
+    
+    .league-list h1 {
+        font-size: 2.2rem;
+    }
+    
+    .list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .league {
+        padding: 1.25rem;
+    }
+    
+    .league img {
+        height: 160px;
+    }
+    
+    .league h3 {
+        font-size: 1.25rem;
+    }
 }
 
-.league-create {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: rgb(39, 39, 39);
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
+/* Mobile */
+@media (max-width: 480px) {
+    .league-list {
+        padding: 1rem;
+    }
+    
+    .league-list h1 {
+        font-size: 1.8rem;
+    }
+    
+    .list {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .league {
+        padding: 1rem;
+    }
+    
+    .league img {
+        height: 140px;
+    }
+    
+    .league h3 {
+        font-size: 1.1rem;
+    }
+    
+    .league label {
+        font-size: 0.85rem;
+    }
+    
+    .league-btn .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 }
 
-.league-create:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+/* Loading Animation (optional - for when cards are loading) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+.league {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Stagger animation for multiple cards */
+.league:nth-child(1) { animation-delay: 0.1s; }
+.league:nth-child(2) { animation-delay: 0.2s; }
+.league:nth-child(3) { animation-delay: 0.3s; }
+.league:nth-child(4) { animation-delay: 0.4s; }
+.league:nth-child(5) { animation-delay: 0.5s; }
+.league:nth-child(6) { animation-delay: 0.6s; }
 .league-create h1 {
     text-align: center;
     margin-bottom: 2rem;
@@ -88,91 +226,3 @@
     font-weight: 600;
 }
 
-/* Form styling */
-.league-create form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-/* Form field paragraphs (Django's form.as_p output) */
-.league-create form p {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Labels */
-.league-create form label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #fafafa;
-    font-size: 0.95rem;
-}
-
-
-
-
-/* Responsive Styles */
-
-/* Desktop (1200px and above) */
-@media (min-width: 1200px) {
-    .league {
-        width: 250px;
-    }
-
-    .league-list h1 {
-        font-size: 2.5rem;
-    }
-}
-
-/* Tablet (768px to 1200px) */
-@media (max-width: 1199px) and (min-width: 768px) {
-    .league {
-        width: 220px;
-    }
-
-    .league-list h1 {
-        font-size: 2rem;
-    }
-}
-
-/* Mobile (below 768px) */
-@media (max-width: 768px) {
-    .list {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .league {
-        width: 90%;
-        max-width: 350px;
-    }
-
-    .league-list h1 {
-        font-size: 1.8rem;
-    }
-
-    .league-btn {
-        font-size: 0.8rem;
-    }
-    .league-create {
-        margin: 1rem;
-        padding: 1.5rem;
-        width: 90%;
-        max-width: 350px;
-    }
-    
-    .league-create h1 {
-        font-size: 1.8rem;
-    }
-    
-    .league-create form {
-        gap: 1rem;
-    }
-    
-    .league-create .btn {
-        width: 100%;
-        font-size: 0.9rem;
-    }
-}

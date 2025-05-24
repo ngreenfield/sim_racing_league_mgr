@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete League{% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-create">
+    <h1>Are you sure you want to delete:</h1>
+    <br>
+    <h2><strong>{{ league.title }}</strong></h2>
+    <br>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'league_list' %}" class="btn btn-primary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

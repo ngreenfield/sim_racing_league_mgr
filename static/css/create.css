@@ -1,0 +1,256 @@
+
+.league-create {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgb(197, 197, 197);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e8ed;
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.league-create::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.league-create h1 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Form Styling */
+.league-create form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Form Paragraphs (Django form.as_p styling) */
+.league-create form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Form Labels */
+.league-create form label {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Form Inputs */
+.league-create form input[type="text"],
+.league-create form input[type="email"],
+.league-create form input[type="password"],
+.league-create form input[type="number"],
+.league-create form input[type="date"],
+.league-create form input[type="datetime-local"],
+.league-create form input[type="file"],
+.league-create form textarea,
+.league-create form select {
+    padding: 12px 16px;
+    border: 2px solid #e0e6ed;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fafbfc;
+    color: #2c3e50;
+}
+
+.league-create form input:focus,
+.league-create form textarea:focus,
+.league-create form select:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Textarea specific styling */
+.league-create form textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* File input styling */
+.league-create form input[type="file"] {
+    padding: 8px 12px;
+    background: white;
+    cursor: pointer;
+}
+
+.league-create form input[type="file"]:hover {
+    border-color: #667eea;
+}
+
+/* Form Help Text */
+.league-create form .helptext {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+/* Error Messages */
+.league-create form .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.league-create form .errorlist li {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    background: #fdf2f2;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-left: 4px solid #e74c3c;
+}
+
+/* Submit Button */
+.league-create form .btn {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    margin-top: 1rem;
+}
+
+.league-create form .btn:hover {
+    background: linear-gradient(135deg, #219a52 0%, #27ae60 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+}
+
+.league-create form .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+/* Required field indicator */
+.league-create form label[for*="required"]::after,
+.league-create form label:has(+ input[required])::after,
+.league-create form label:has(+ textarea[required])::after,
+.league-create form label:has(+ select[required])::after {
+    content: " *";
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Checkbox and Radio styling */
+.league-create form input[type="checkbox"],
+.league-create form input[type="radio"] {
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+    accent-color: #667eea;
+}
+
+.league-create form p:has(input[type="checkbox"]),
+.league-create form p:has(input[type="radio"]) {
+    flex-direction: row;
+    align-items: center;
+}
+
+.league-create form p:has(input[type="checkbox"]) label,
+.league-create form p:has(input[type="radio"]) label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .league-create {
+        max-width: 90%;
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+    
+    .league-create h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .league-create form {
+        gap: 1.25rem;
+    }
+    
+    .league-create form input,
+    .league-create form textarea,
+    .league-create form select {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+    
+    .league-create form .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .league-create {
+        max-width: 95%;
+        padding: 1rem;
+        margin: 0.5rem auto;
+        border-radius: 8px;
+    }
+    
+    .league-create h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+    
+    .league-create form {
+        gap: 1rem;
+    }
+    
+    .league-create form input,
+    .league-create form textarea,
+    .league-create form select {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .league-create form textarea {
+        min-height: 100px;
+    }
+    
+    .league-create form .btn {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .league-create form label {
+        font-size: 0.9rem;
+    }
+    
+    .league-create form .helptext {
+        font-size: 0.8rem;
+    }
+}

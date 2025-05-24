@@ -11,24 +11,25 @@ Leagues
 
 {% block content %}
 <div class="league-list">
-    <h1>Leagues!</h1>
+    <h1>Current Leagues</h1>
     <div class="league-btn">
         <a class="btn btn-primary" href="{% url 'league_create' %}">Create League</a>
     </div>
 
     <div class="list">
         {% for league in object_list %}
-            <div class="league">
+            <a href="{% url 'league_details' league.pk %}" class="league-link">
+                <div class="league">
+                    {% if league.image %}
+                        <img src="{{ league.image.url }}">
+                    {% endif %}
 
-                {% if league.image %}
-                    <img src="{{ league.image.url }}">
-                {% endif %}
-
-                <h3>{{ league.title }}</h3>
-                <label>Created: {{ league.created_on }}</label>
-            </div>
+                    <h3>{{ league.title }}</h3>
+                    <label>Created: {{ league.created_on }}</label>
+                </div>
+            </a>
         {% endfor %}
-
     </div>
 </div>
 {% endblock content %}
+

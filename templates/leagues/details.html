@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+League Details
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="league-details">
+
+    {% if league.image %}
+    <img src="{{ league.image.url }}" alt="">
+    {% endif %}
+
+    <h3>{{ league.title }}</h3>
+    <label>Created on: {{ league.created_on }}</label>
+
+    <p><strong>Race Day:</strong> {{ league.race_day }}</p>
+    <p><strong>Race Time:</strong> {{ league.race_time }}</p>
+
+    <p><strong>Cars:</strong></p>
+    <ul>
+        {% for car in league.cars.all %}
+            <li>{{ car }}</li>
+        {% empty %}
+            <li>No cars assigned.</li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Tracks:</strong></p>
+    <ul>
+        {% for track in league.tracks.all %}
+            <li>{{ track }}</li>
+        {% empty %}
+            <li>No tracks assigned.</li>
+        {% endfor %}
+    </ul>
+
+    <div>
+    <a href="" class="btn btn-success">Register for League</a>
+    </div>
+    <a href="{% url 'league_update' league.id %}" class="btn btn-sm btn-primary">Edit League</a>
+    <a href="{% url 'league_delete' league.id %}" class="btn btn-sm btn-danger">Delete League</a>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,51 @@
+.about-header {
+    background-color: #1e1e1e;
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.about-header h1 {
+    font-size: 2.5rem;
+}
+
+.racing-stripe {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #ff0000, #ffff00, #00ff00);
+    margin: 20px auto;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #eee;
+}
+
+.about-content h2 {
+    color: #00bfff;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.about-content p,
+.about-content li {
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.about-content ul {
+    padding-left: 20px;
+    list-style: disc;
+}
+
+@media (max-width: 768px) {
+    .about-header h1 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        padding: 0 10px;
+    }
+}

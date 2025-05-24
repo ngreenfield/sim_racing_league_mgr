@@ -6,15 +6,59 @@ Home
 {% endblock title %}
 
 {% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>Sim Racing League Hub</h1>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur assumenda dolor rem quod repellat culpa unde exercitationem velit. Praesentium dolorem commodi minus voluptatum iure, delectus, neque ratione debitis perferendis aperiam laborum nobis expedita suscipit esse! Deleniti porro obcaecati nobis rem sunt ut aut dolor debitis, iusto recusandae praesentium quos omnis iste culpa consequatur molestiae eius quibusdam voluptatem non cupiditate saepe quia. Laboriosam quasi nulla, soluta quaerat velit illo. A cum suscipit architecto unde deleniti qui ipsam quisquam dolorum maiores ipsa fugit temporibus blanditiis repellendus minus vel aspernatur harum molestiae, consequatur fugiat? Eos dicta optio magni libero nihil, aut voluptatem ipsum. Quisquam cupiditate laboriosam ipsa quam nemo! Maxime quam, deserunt cupiditate nisi facilis excepturi ea in labore fugiat quidem nulla iusto, vero, neque minus aliquid doloremque illum iure quod quas ratione expedita perspiciatis hic! Molestias, sint eum? Distinctio fuga odio hic sit cum, in vitae aliquam. Ad necessitatibus impedit nihil?</p>
-
-<div class="home-img">
-    <img src="/static/img/homepageracing.jpg" alt="">
+<div class="welcome-section">
+    <h1>Sim Racing League Hub</h1>
+    <div class="racing-stripe"></div>
 </div>
 
+<div class="content-card">
+    <p>Welcome to the ultimate destination for competitive sim racing! Our platform brings together passionate racers from around the world to compete in organized leagues across multiple racing disciplines.</p>
+    
+    <p>Whether you're a seasoned pro looking for championship-level competition or a newcomer eager to improve your skills, our leagues offer the perfect environment to test your mettle against drivers of all skill levels. Experience the thrill of wheel-to-wheel racing, strategic pit stops, and championship battles that will keep you on the edge of your seat.</p>
+    
+    <p>Join our community today and discover why thousands of racers choose our platform for their competitive racing needs. From Formula 1 to GT racing, rally stages to oval tracks - your next great racing adventure starts here!</p>
+</div>
+
+
+<div class="features-section">
+    <div class="feature-highlights">
+        <div class="feature-item">
+            <div class="feature-icon">🏆</div>
+            <h3>Championship Racing</h3>
+            <p>Compete in seasonal championships with points, standings, and prestigious titles.</p>
+        </div>
+        
+        <div class="feature-item">
+            <div class="feature-icon">🏁</div>
+            <h3>Multiple Disciplines</h3>
+            <p>From Formula racing to endurance events, find your perfect racing category.</p>
+        </div>
+        
+        <div class="feature-item">
+            <div class="feature-icon">👥</div>
+            <h3>Racing Community</h3>
+            <p>Connect with fellow racers, share setups, and build lasting friendships.</p>
+        </div>
+    </div>
+</div>
+<div class="home-img">
+    <img src="{% static 'img/homeimg1.jpg' %}">
+    <img src="{% static 'img/homeimg2.jpg' %}">
+    <img src="{% static 'img/homeimg3.jpg' %}">
+</div>
+
+<div class="cta-section">
+    <h2>Ready to Start Racing?</h2>
+    <div class="racing-stripe"></div>
+    <p>Browse our active leagues and find your next competitive challenge!</p>
+    <div class="cta-buttons">
+        <a href="{% url 'league_list' %}" class="btn btn-primary">View Leagues</a>
+        <a href="{% url 'league_create' %}" class="btn btn-secondary">Create League</a>
+    </div>
+</div>
 {% endblock content %}

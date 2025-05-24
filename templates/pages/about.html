@@ -1,11 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-About 
+About Us
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h3>About Us!</h3>
-{% endblock %}
+<div class="about-header">
+    <h1>About Sim Racing League Hub</h1>
+    <div class="racing-stripe"></div>
+</div>
 
+<div class="about-content">
+    <section class="mission">
+        <h2>Our Mission</h2>
+        <p>We aim to be the ultimate platform for competitive sim racing by offering structured leagues, vibrant community interaction, and a professional environment for drivers of all experience levels.</p>
+    </section>
+
+    <section class="vision">
+        <h2>Our Vision</h2>
+        <p>To create a global hub where virtual racers can grow, compete, and connect—bringing the spirit and excitement of real motorsports into the sim racing world.</p>
+    </section>
+
+    <section class="history">
+        <h2>Our Story</h2>
+        <p>Founded by a group of passionate sim racers, Sim Racing League Hub was created to address the need for organized, fair, and engaging competition. We've since grown into a thriving community where racers can push their limits in a variety of racing disciplines.</p>
+    </section>
+
+    <section class="values">
+        <h2>What We Value</h2>
+        <ul>
+            <li><strong>Fair Competition:</strong> Integrity and respect are at the heart of our races.</li>
+            <li><strong>Community:</strong> From tuning tips to post-race banter, we’re stronger together.</li>
+            <li><strong>Accessibility:</strong> Whether you're on a budget rig or a pro setup, you're welcome here.</li>
+        </ul>
+    </section>
+</div>
+{% endblock content %}
 

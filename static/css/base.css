@@ -22,9 +22,22 @@ h1{
 }
 
 .navbar {
-    background: rgb(25, 241, 241);
-    background: -webkit-linear-gradient(to right, rgba(23, 142, 240, 0.9), rgba(63, 13, 243, 0.9));
-    background: linear-gradient(to right, rgb(25, 241, 241), rgba(66, 8, 226, 0.9));
+    background: linear-gradient(to right, #00c9ff, #6a00f4);
+    color: white;
+    padding: 1rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #ffd700; /* Gold on hover */
 }
 
 .home-img img{
