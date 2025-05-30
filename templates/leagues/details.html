@@ -13,7 +13,7 @@ League Details
 <div class="league-details">
 
     {% if league.image %}
-    <img src="{{ league.image.url }}" alt="">
+    <img src="{{ league.image.url }}" alt="League Image">
     {% endif %}
 
     <h3>{{ league.title }}</h3>
@@ -40,9 +40,14 @@ League Details
         {% endfor %}
     </ul>
 
-    <div>
-    <a href="" class="btn btn-success">Register for League</a>
-    </div>
+    <p><strong>Max Participants:</strong> {{ league.max_participants }}</p>
+    <p><strong>Current Participants:</strong> {{ league.participants.count }}</p>
+
+    <form method="POST" action="{% url 'register_for_league' league.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Register for League</button>
+    </form>
+    
     <div>
         <a href="{% url 'league_update' league.id %}" class="btn btn-sm btn-primary">Edit League</a>
         <a href="{% url 'league_delete' league.id %}" class="btn btn-sm btn-danger">Delete League</a>

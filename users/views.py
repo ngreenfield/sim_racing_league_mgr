@@ -47,7 +47,7 @@ def register_view(request):
             return redirect('racer_dashboard')
     else:
         form = RacerRegistrationForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'racer/register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
@@ -59,15 +59,41 @@ class CustomLoginView(LoginView):
         return reverse_lazy('racer_dashboard')
     
 class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('root')
 
 # Admin Views
 @login_required
 @admin_required
 def admin_dashboard(request):
-    leagues = League.objects.all().order_by('-created_on')
-    return render(request, 'users/admin/dashboard.html', {'leagues': leagues})
+    user = request.user
 
+    # Leagues the admin has created
+    leagues_created = League.objects.filter(created_by=user).order_by('-created_on')
+
+    # Add registration info to each league the admin created
+    for league in leagues_created:
+        league.registered_users = league.participants.all()
+        league.registration_count = league.participants.count()
+        # Get recent registrations for this league
+        league.recent_registrations = LeagueRegistration.objects.filter(
+            league=league
+        ).select_related('user').order_by('-registered_at')
+
+    # Leagues the admin has registered for (avoiding duplicates)
+    leagues_registered = League.objects.filter(
+        leagueregistration__user=user
+    ).order_by('-created_on').distinct()
+
+    # All recent registrations across leagues the admin created
+    all_recent_registrations = LeagueRegistration.objects.filter(
+        league__created_by=user
+    ).select_related('user', 'league').order_by('-registered_at')[:10]
+
+    return render(request, 'users/admin/dashboard.html', {
+        'leagues_created': leagues_created,
+        'leagues_registered': leagues_registered,
+        'all_recent_registrations': all_recent_registrations,
+    })
 
 @login_required
 @admin_required
@@ -102,18 +128,22 @@ def racer_dashboard(request):
     if not request.user.is_racer():
         raise PermissionDenied
     
-    available_leagues = League.objects.exclude(participants=request.user)
+    # Get leagues where the user is not a participant
+    available_leagues = League.objects.exclude(
+        leagueregistration__user=request.user
+    )
+    
+    # Get leagues the user has already registered for
     registered_leagues = request.user.joined_leagues.all()
     
-    return render(request, 'racer/dashboard.html', {
+    return render(request, 'users/racer/dashboard.html', {
         'available_leagues': available_leagues,
         'registered_leagues': registered_leagues,
     })
 
-
 @login_required
 def register_for_league(request, league_id):
-    if not request.user.is_racer():
+    if not (request.user.is_racer() or request.user.is_league_admin()):
         raise PermissionDenied
     
     league = get_object_or_404(League, id=league_id)
@@ -123,8 +153,13 @@ def register_for_league(request, league_id):
         league=league
     )
     
-    messages.success(request, f'Registered for "{league.name}"!')
-    return redirect('racer_dashboard')
+    messages.success(request, f'Registered for "{league.title}"!')
+    
+    if request.user.is_league_admin():  # Changed from is_admin() to is_league_admin()
+        return redirect('admin_dashboard')
+    else:
+        return redirect('racer_dashboard')
+    
 
 
 @login_required

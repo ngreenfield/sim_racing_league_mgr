@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from leagues.models import League
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -13,3 +14,7 @@ class User(AbstractUser):
 
     def is_league_admin(self):
         return self.role == 'admin'
+
+    @property
+    def joined_leagues(self):
+        return League.objects.filter(leagueregistration__user=self)

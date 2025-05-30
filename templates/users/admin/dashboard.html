@@ -2,17 +2,49 @@
 
 {% block title %}Admin Dashboard{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="/static/css/users.css">
+{% endblock %}
+
 {% block content %}
-  <h1>Admin Dashboard</h1>
-  <h2>Leagues</h2>
+  <div class="container">
+    <h2>Leagues You Created</h2>
+    <div class="league-list">
+      {% if leagues_created %}
+        <ul>
+          {% for league in leagues_created %}
+            <li>
+              <strong>{{ league.title }}</strong> ({{ league.registration_count }} registrations)
+              <ul>
+                {% for registration in league.recent_registrations %}
+                  <li>{{ registration.user.username }} - {{ registration.registered_at }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>You haven't created any leagues yet.</p>
+      {% endif %}
+    </div>
 
-  <ul>
-    {% for league in leagues %}
-      <li>{{ league.title }} - Created on {{ league.created_on }}</li>
-    {% empty %}
-      <li>No leagues available.</li>
-    {% endfor %}
-  </ul>
+    <h3>My League Registrations</h3>
+    <div class="recent-registrations">
+      {% if leagues_registered %}
+        <ul>
+          {% for league in leagues_registered %}
+            <li>
+              You are registered for <em>{{ league.title }}</em>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>You haven't registered for any leagues yet.</p>
+      {% endif %}
+    </div>
 
-  <a href="{% url 'create_league' %}">Create a New League</a>
+    <div class="actions">
+      <a href="{% url 'create_league' %}">Create a New League</a>
+    </div>
+  </div>
 {% endblock %}

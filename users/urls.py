@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/leagues/<int:league_id>/delete/', views.delete_league, name='delete_league'),
     
     # Racer
-    path('dashboard/', views.racer_dashboard, name='racer_dashboard'),
+    path('racer/dashboard/', views.racer_dashboard, name='racer_dashboard'),
     path('leagues/<int:league_id>/register/', views.register_for_league, name='register_for_league'),
     path('leagues/<int:league_id>/unregister/', views.unregister_from_league, name='unregister_from_league'),
 ]

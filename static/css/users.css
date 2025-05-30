@@ -1,0 +1,251 @@
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+    background-color: #b9b9b9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    margin: 50px auto; /* Center the form */
+}
+
+.auth-card {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h1 {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.auth-header p {
+    font-size: 16px;
+    color: #777;
+}
+
+/* Form Styling */
+.auth-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #f8f8f8;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #00c9ff; /* Focus border color to match the theme */
+    background-color: #fff;
+}
+
+.form-errors {
+    color: red;
+    font-size: 12px;
+}
+
+.field-errors ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #00c9ff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-btn:hover {
+    background-color: #6a00f4;
+}
+
+/* Footer Section */
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth-footer p {
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #00c9ff;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styles */
+
+/* Tablet (768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .auth-container {
+        padding: 25px;
+    }
+
+    .auth-header h1 {
+        font-size: 26px;
+    }
+
+    .auth-btn {
+        font-size: 15px;
+    }
+}
+
+/* Mobile (below 768px) */
+@media (max-width: 768px) {
+    .auth-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .auth-header h1 {
+        font-size: 22px;
+    }
+
+    .auth-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/************** DASHBOARDS **********/
+
+/* General container for all dashboard content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #0a0a0a;
+}
+
+/* Title styling for headings */
+h2, h3 {
+  font-size: 24px;
+  color: #bebebe;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Section for each league list */
+.league-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.league-list li {
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Each league name in the created list */
+.league-list li strong {
+  font-size: 18px;
+  color: #007bff;
+}
+
+/* Nested registration list under each league */
+.league-list li ul {
+  margin-top: 10px;
+}
+
+.league-list li ul li {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Styling for actions section (e.g. Create a new league) */
+.actions {
+  margin-top: 20px;
+}
+
+.actions a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.actions a:hover {
+  background-color: #0056b3;
+}
+
+/* Section for recent registrations */
+.recent-registrations ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recent-registrations li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.recent-registrations strong {
+  font-size: 16px;
+  color: #333;
+}
+
+.recent-registrations em {
+  font-style: italic;
+  color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h2, h3 {
+    font-size: 20px;
+  }
+
+  .actions a {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

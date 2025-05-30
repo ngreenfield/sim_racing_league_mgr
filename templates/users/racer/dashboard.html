@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Racer Dashboard{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/users.css">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+   <h3>My League Registrations</h3>
+    <div class="recent-registrations">
+      {% if registered_leagues %}
+        <ul>
+          {% for league in registered_leagues %}
+            <li>
+              You are registered for <em>{{ league.title }}</em>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>You haven't registered for any leagues yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="actions">
+      <a href="{% url 'league_list' %}">View Leagues</a>
+    </div>
+  </div>
+{% endblock %}
