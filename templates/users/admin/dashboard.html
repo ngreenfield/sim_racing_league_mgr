@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <h2>Leagues</h2>
+
+  <ul>
+    {% for league in leagues %}
+      <li>{{ league.title }} - Created on {{ league.created_on }}</li>
+    {% empty %}
+      <li>No leagues available.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'create_league' %}">Create a New League</a>
+{% endblock %}

@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import environ
 import certifi
+from django.urls import reverse_lazy
 
 #create a secure connection
 os.environ["SSL_CERT_FILE"] = certifi.where()
@@ -112,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -149,3 +152,7 @@ EMAIL_USE_SSL=False
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER=env('SMTP_EMAIL')
 EMAIL_HOST_PASSWORD=env('SMTP_PASS')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'  # Will be handled by your CustomLoginView
+LOGOUT_REDIRECT_URL = reverse_lazy('home')

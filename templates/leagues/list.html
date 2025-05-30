@@ -11,7 +11,10 @@ Leagues
 
 {% block content %}
 <div class="league-list">
-    <h1>Current Leagues</h1>
+    <div class="league-header">
+        <h1>Current Leagues</h1>
+    <div class="racing-stripe"></div>
+    </div>
     <div class="league-btn">
         <a class="btn btn-primary" href="{% url 'league_create' %}">Create League</a>
     </div>
