@@ -10,8 +10,6 @@ urlpatterns = [
     
     # Admin
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('admin/leagues/create/', views.create_league, name='create_league'),
-    path('admin/leagues/<int:league_id>/delete/', views.delete_league, name='delete_league'),
     
     # Racer
     path('racer/dashboard/', views.racer_dashboard, name='racer_dashboard'),

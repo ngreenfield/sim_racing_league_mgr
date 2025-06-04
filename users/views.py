@@ -13,12 +13,21 @@ from leagues.models import League, LeagueRegistration
 from leagues.forms import LeagueForm
 
 
-# Decorators
+# Decorators - Updated to handle permission denied better
 def admin_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_league_admin():
-            raise PermissionDenied
+        if not request.user.is_authenticated:
+            messages.error(request, "Please log in to access this page.")
+            return redirect('login')
+        
+        if not request.user.is_league_admin():
+            messages.error(request, "Admin access required to perform this action.")
+            return render(request, '403.html', {
+                'error_message': 'Admin access required',
+                'redirect_url': reverse_lazy('racer_dashboard')
+            }, status=403)
+        
         return view_func(request, *args, **kwargs)
     return wrapper
 
@@ -95,38 +104,15 @@ def admin_dashboard(request):
         'all_recent_registrations': all_recent_registrations,
     })
 
-@login_required
-@admin_required
-def create_league(request):
-    if request.method == 'POST':
-        form = LeagueForm(request.POST)
-        if form.is_valid():
-            league = form.save(commit=False)
-            league.created_by = request.user
-            league.save()
-            messages.success(request, f'League "{league.name}" created!')
-            return redirect('admin_dashboard')
-    else:
-        form = LeagueForm()
-    return render(request, 'admin/create_league.html', {'form': form})
-
-
-@login_required
-@admin_required
-def delete_league(request, league_id):
-    league = get_object_or_404(League, id=league_id)
-    if request.method == 'POST':
-        league.delete()
-        messages.success(request, 'League deleted!')
-        return redirect('admin_dashboard')
-    return render(request, 'admin/delete_league.html', {'league': league})
-
-
-# Racer Views
+# Racer Views - Updated to handle permission denied better
 @login_required
 def racer_dashboard(request):
     if not request.user.is_racer():
-        raise PermissionDenied
+        messages.error(request, "Racer access required to view this page.")
+        return render(request, '403.html', {
+            'error_message': 'Racer access required',
+            'redirect_url': reverse_lazy('login')
+        }, status=403)
     
     # Get leagues where the user is not a participant
     available_leagues = League.objects.exclude(
@@ -144,7 +130,11 @@ def racer_dashboard(request):
 @login_required
 def register_for_league(request, league_id):
     if not (request.user.is_racer() or request.user.is_league_admin()):
-        raise PermissionDenied
+        messages.error(request, "You don't have permission to register for leagues.")
+        return render(request, '403.html', {
+            'error_message': 'Permission required to register for leagues',
+            'redirect_url': reverse_lazy('login')
+        }, status=403)
     
     league = get_object_or_404(League, id=league_id)
     
@@ -155,17 +145,20 @@ def register_for_league(request, league_id):
     
     messages.success(request, f'Registered for "{league.title}"!')
     
-    if request.user.is_league_admin():  # Changed from is_admin() to is_league_admin()
+    if request.user.is_league_admin():
         return redirect('admin_dashboard')
     else:
         return redirect('racer_dashboard')
-    
 
 
 @login_required
 def unregister_from_league(request, league_id):
     if not request.user.is_racer():
-        raise PermissionDenied
+        messages.error(request, "Racer access required to unregister from leagues.")
+        return render(request, '403.html', {
+            'error_message': 'Racer access required',
+            'redirect_url': reverse_lazy('login')
+        }, status=403)
     
     league = get_object_or_404(League, id=league_id)
     registration = get_object_or_404(LeagueRegistration, user=request.user, league=league)

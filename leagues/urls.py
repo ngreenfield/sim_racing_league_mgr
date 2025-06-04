@@ -9,3 +9,4 @@ urlpatterns=[
     path('delete/<int:pk>', views.LeagueDelete.as_view(), name="league_delete"),
     path('register/<int:pk>/', views.register_for_league, name="register_for_league"),
 ]
+
