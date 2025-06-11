@@ -4,32 +4,39 @@
 {% block title %}Access Denied{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+<link rel="stylesheet" href="{% static 'css/errors.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="error-container">
-    <h1 class="error-code">403</h1>
-    <h2 class="error-message">Access Denied</h2>
-    <p class="error-description">
-        {% if error_message %}
-            {{ error_message }}
-        {% else %}
-            You don't have permission to access this page.
-        {% endif %}
-    </p>
-    
-    <div class="error-actions">
-        {% if redirect_url %}
-            <a href="{{ redirect_url }}" class="btn btn-primary">Go Back to Leagues</a>
-        {% endif %}
-        <a href="{% url 'league_list' %}" class="btn btn-secondary">View All Leagues</a>
-    </div>
-    
-    {% if not user.is_authenticated %}
-        <p class="login-prompt">
-            <a href="{% url 'login' %}">Login</a> if you have an admin account.
+<section class="error-page">
+    <div class="container">
+        <header class="error-header">
+            <h1 class="error-code">403</h1>
+            <h2 class="error-title">Access Denied</h2>
+        </header>
+
+        <p class="error-message">
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                You don't have permission to access this page.
+            {% endif %}
         </p>
-    {% endif %}
-</div>
+
+        <div class="error-buttons">
+            {% if redirect_url %}
+                <a href="{{ redirect_url }}" class="btn btn-primary">Go Back</a>
+            {% endif %}
+            <a href="{% url 'league_list' %}" class="btn btn-secondary">View All Leagues</a>
+        </div>
+
+        {% if not user.is_authenticated %}
+            <div class="login-notice">
+                <p>
+                    <a href="{% url 'login' %}">Log in</a> with an admin account to access this page.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}

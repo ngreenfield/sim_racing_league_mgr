@@ -1,0 +1,86 @@
+/* error.css */
+
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 2rem;
+}
+
+.error-page .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.error-header .error-code {
+    font-size: 6rem;
+    margin: 0;
+    color: #dc3545; /* Bootstrap danger red */
+    font-weight: bold;
+}
+
+.error-header .error-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.error-message {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.error-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.error-buttons .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.login-notice {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.login-notice a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.login-notice a:hover {
+    text-decoration: none;
+}

@@ -1,7 +1,7 @@
 .auth-container {
     width: 100%;
     max-width: 450px;
-    background-color: #b9b9b9;
+    background-color: #437df8;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 30px;
     border-radius: 10px;
@@ -27,7 +27,7 @@
 
 .auth-header p {
     font-size: 16px;
-    color: #777;
+    color: #e6e6e6;
 }
 
 /* Form Styling */
@@ -155,7 +155,7 @@
 /* Title styling for headings */
 h2, h3 {
   font-size: 24px;
-  color: #bebebe;
+  color: #ffffff;
   margin-bottom: 15px;
   font-weight: bold;
 }

@@ -56,7 +56,7 @@ def register_view(request):
             return redirect('racer_dashboard')
     else:
         form = RacerRegistrationForm()
-    return render(request, 'racer/register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):

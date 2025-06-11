@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Results - {{ race.name }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/races.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Enter Results for Race: {{ race.name }}</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Race Results Form</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for form in formset %}
+                            <div class="mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-4"> Driver Name
+                                        {{ form.driver }}
+                                    </div>
+                                    <div class="col-md-4"> Car
+                                        {{ form.car }}
+                                    </div>
+                                    <div class="col-md-2"> Position
+                                        {{ form.position }}
+                                    </div>
+                                    <div class="col-md-2"> Fastest Lap
+                                        {{ form.fastest_lap_time }}
+                                    </div>
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="col-md-6"> Laps Completed
+                                        {{ form.laps_completed }}
+                                    </div>
+                                    <div class="col-md-6"> DNF
+                                        {{ form.dnf }}
+                                    </div>
+                                </div>
+                                <hr class="my-3">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Save Results</button>
+            <a href="{% url 'league_list' %}" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

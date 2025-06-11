@@ -22,16 +22,8 @@ h1{
     margin-top: 15px;
 }
 
-.navbar {
-    background: linear-gradient(to right, #00c9ff, #6a00f4);
-    color: white;
-    padding: 1rem 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.navbar {
-    margin-top: 0;  /* Ensure no top margin on navbar */
+.navbar{
+    margin-top: 0;
     background: linear-gradient(to right, #00c9ff, #6a00f4);
     color: white;
     padding: 1rem 2rem;
@@ -40,7 +32,7 @@ h1{
 }
 
 .navbar a:hover {
-    color: #ffd700; /* Gold on hover */
+    color: #ffd700; 
 }
 
 .user-nav{

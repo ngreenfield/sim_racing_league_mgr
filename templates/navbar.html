@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sim Racing League</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Sim Racing League</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,7 +30,7 @@
         {% if user.is_authenticated %}
             <li class="nav-item">
                 {% if user.is_league_admin %}
-                <a class="nav-link" href="{% url 'admin_dashboard' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
                 {% else %}
                 <a class="nav-link" href="{% url 'racer_dashboard' %}">Dashboard</a>
                 {% endif %}

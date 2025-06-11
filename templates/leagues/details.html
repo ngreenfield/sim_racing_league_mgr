@@ -22,8 +22,8 @@ League Details
     <p><strong>Race Day:</strong> {{ league.race_day }}</p>
     <p><strong>Race Time:</strong> {{ league.race_time }}</p>
 
-    <p><strong>Cars:</strong></p>
     <ul>
+        <span class="list-title"><strong>Cars:</strong></span>
         {% for car in league.cars.all %}
             <li>{{ car }}</li>
         {% empty %}
@@ -31,12 +31,24 @@ League Details
         {% endfor %}
     </ul>
 
-    <p><strong>Tracks:</strong></p>
     <ul>
-        {% for track in league.tracks.all %}
-            <li>{{ track }}</li>
+        <span class="list-title"><strong>Races:</strong></span>
+        {% for race in league.races.all %}
+            <li>
+                <a href="{% url 'race_details' race.pk %}" class="race-link">
+                    {{ race.name }}
+                </a>
+                <small class="text">
+                    - {{ race.track.name }} 
+                    {% if race.is_completed %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-warning">Upcoming</span>
+                    {% endif %}
+                </small>
+            </li>
         {% empty %}
-            <li>No tracks assigned.</li>
+            <li>No races assigned.</li>
         {% endfor %}
     </ul>
 
@@ -51,6 +63,7 @@ League Details
     <div>
         <a href="{% url 'league_update' league.id %}" class="btn btn-sm btn-primary">Edit League</a>
         <a href="{% url 'league_delete' league.id %}" class="btn btn-sm btn-danger">Delete League</a>
+        <a href="{% url 'league_standings' league.pk %}" class="btn btn-sm btn-info">View Standings</a>
     </div>
 </div>
 {% endblock content %}

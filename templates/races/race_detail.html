@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ race.name }} - Race Results{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/races.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Race Header -->
+    <div class="row mb-4">
+        <div class="header col-12">
+            <div class="badge-container">
+                {% if race.is_completed %}
+                    <span class="badge bg-success fs-6">Race Completed</span>
+                {% else %}
+                    <span class="badge bg-warning fs-6">Upcoming Race</span>
+                {% endif %}
+            </div>
+            
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'league_details' race.league.pk %}">Races</a></li>
+                    <li class="breadcrumb-item active">{{ race.name }}</li>
+                </ol>
+            </nav>
+            
+            <h1>{{ race.name }}</h1>
+            <p class="lead">{{ race.league.title }} - {{ race.track.name }}</p>
+
+        </div>
+    </div>
+    
+    <!-- Race Information -->
+    <div class="row race-info mb-4">
+        <!-- Left Column: Race Info -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Race Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Date & Time:</dt>
+                        <dd class="col-sm-8">{{ race.race_date|date:"M d, Y H:i" }}</dd>
+
+                        <dt class="col-sm-4">Track:</dt>
+                        <dd class="col-sm-8">{{ race.track.name }}</dd>
+
+                        <dt class="col-sm-4">Laps:</dt>
+                        <dd class="col-sm-8">{{ race.laps }}</dd>
+
+                        {% if race.race_length_minutes %}
+                        <dt class="col-sm-4">Duration:</dt>
+                        <dd class="col-sm-8">{{ race.race_length_minutes }} minutes</dd>
+                        {% endif %}
+
+                        {% if race.weather_conditions %}
+                        <dt class="col-sm-4">Weather:</dt>
+                        <dd class="col-sm-8">{{ race.weather_conditions }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Track Image -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            {% if race.track.image %}
+                <img src="{{ race.track.image.url }}" alt="{{ race.track.name }} image" class="img-fluid rounded shadow-sm">
+            {% else %}
+                <p class="text-muted">No track image available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Race Statistics -->
+    {% if race.is_completed and results %}
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Race Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-6">Total Drivers:</dt>
+                        <dd class="col-sm-6">{{ total_drivers }}</dd>
+                        
+                        <dt class="col-sm-6">Finishers:</dt>
+                        <dd class="col-sm-6">{{ finishers }}</dd>
+                        
+                        {% if dnf_count > 0 %}
+                        <dt class="col-sm-6">DNFs:</dt>
+                        <dd class="col-sm-6">{{ dnf_count }}</dd>
+                        {% endif %}
+                        
+                        {% if fastest_lap_driver %}
+                        <dt class="col-sm-6">Fastest Lap:</dt>
+                        <dd class="col-sm-6">{{ fastest_lap_driver.username }} ({{ fastest_lap_time }})</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Race Results -->
+    {% if race.is_completed %}
+        {% if results %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Race Results</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Pos</th>
+                                <th>Driver</th>
+                                <th>Car</th>
+                                <th>Laps</th>
+                                <th>Total Time</th>
+                                <th>Fastest Lap</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results %}
+                            <tr {% if result.position == 1 %}class="table-warning"{% elif result.position <= 3 %}class="table-light"{% endif %}>
+                                <td>
+                                    <strong>
+                                        {% if result.position == 1 %}🥇{% elif result.position == 2 %}🥈{% elif result.position == 3 %}🥉{% endif %}
+                                        {{ result.position }}
+                                    </strong>
+                                </td>
+                                <td>{{ result.driver.username }}</td>
+                                <td>{{ result.car.name|default:"-" }}</td>
+                                <td>{{ result.laps_completed }}</td>
+                                <td>{{ result.total_time|default:"-" }}</td>
+                                <td>{{ result.fastest_lap_time|default:"-" }}</td>
+                                <td><strong>{{ result.points }}</strong></td>
+                                <td>
+                                    {% if result.dnf %}
+                                        <span class="badge bg-danger">DNF</span>
+                                        {% if result.dnf_reason %}
+                                            <br><small class="text-muted">{{ result.dnf_reason }}</small>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge bg-success">Finished</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No Results Yet</h4>
+            <p>This race is marked as completed but no results have been entered yet.</p>
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Upcoming Race</h4>
+            <p>This race hasn't taken place yet. Results will be available after the race is completed.</p>
+            <hr>
+            <p class="mb-0">
+                <strong>Scheduled for:</strong> {{ race.race_date|date:"l, F d, Y \a\t H:i" }}
+            </p>
+        </div>
+    {% endif %}
+
+    <!-- Buttons -->
+    <div class="mt-4">
+        <a href="{% url 'league_details' race.league.pk %}" class="btn btn-primary">← View League</a>
+        {% if race.league %}
+        <a href="{% url 'league_standings' race.league.pk %}" class="btn btn-success">Championship Standings</a>
+        {% endif %}
+        {% if user.is_staff %}
+        <a href="{% url 'race_results' race.pk %}" class="btn btn-danger">Admin: Add/Edit Results</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

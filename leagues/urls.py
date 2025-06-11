@@ -8,5 +8,14 @@ urlpatterns=[
     path('update/<int:pk>/', views.LeagueUpdate.as_view(), name="league_update"),
     path('delete/<int:pk>', views.LeagueDelete.as_view(), name="league_delete"),
     path('register/<int:pk>/', views.register_for_league, name="register_for_league"),
+
+     # Race URLs
+    path('races/', views.RaceListView.as_view(), name='race_list'),
+    path('races/<int:pk>/', views.RaceDetailView.as_view(), name='race_details'),
+    path('races/create/', views.RaceCreateView.as_view(), name='race_create'),
+    path('races/<int:race_id>/results/', views.RaceResultsCreateView.as_view(), name='race_results'),
+    
+    # League standings
+    path('leagues/<int:pk>/standings/', views.LeagueStandingsView.as_view(), name='league_standings'),
 ]
 

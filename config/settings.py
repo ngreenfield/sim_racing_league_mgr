@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'users',
-    'notes',
     'leagues',
 ]
 
@@ -121,7 +120,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -153,6 +152,6 @@ EMAIL_USE_TLS=True
 EMAIL_HOST_USER=env('SMTP_EMAIL')
 EMAIL_HOST_PASSWORD=env('SMTP_PASS')
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'  # Will be handled by your CustomLoginView
 LOGOUT_REDIRECT_URL = reverse_lazy('home')

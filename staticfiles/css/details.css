@@ -1,0 +1,169 @@
+/* League Details - Minimal & Clean */
+.league-details {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: linear-gradient(135deg, #4aca17 0%, #4e2b72 100%);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    color: white;
+}
+
+.league-details img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.league-details h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.league-details label {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin: 0 1.5rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.league-details p {
+    margin: 1rem 1.5rem;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.league-details ul {
+    margin: 0.5rem 1.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    list-style: none;
+}
+
+.league-details ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.league-details ul li:last-child {
+    border-bottom: none;
+}
+
+.league-details .race-link {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.league-details .race-link:hover {
+    text-decoration: underline;
+}
+
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.bg-success { background: #10b981; }
+.bg-warning { background: #f59e0b; }
+.bg-info { background: #3b82f6; }
+
+.text-muted {
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin: 0.25rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-size: 1.1rem;
+    margin: 1.5rem;
+}
+
+.btn-primary { background: #3b82f6; color: white; }
+.btn-danger { background: #ef4444; color: white; }
+.btn-info { background: #06b6d4; color: white; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
+
+.league-details form {
+    margin: 0;
+}
+
+.league-details > div:last-child {
+    padding: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .league-details {
+        margin: 1rem;
+        border-radius: 12px;
+    }
+    
+    .league-details h3 {
+        font-size: 2rem;
+        margin: 1rem;
+    }
+    
+    .league-details label,
+    .league-details p,
+    .league-details ul {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    .league-details > div:last-child {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .btn-success {
+        margin: 1rem;
+    }
+}
+
+/* Delete page styling */
+.delete-create {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: white;
+}
