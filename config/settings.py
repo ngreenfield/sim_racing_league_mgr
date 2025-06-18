@@ -36,7 +36,9 @@ SECRET_KEY = 'django-insecure-2!p&h2d^xg23s(qv&4+bsuz885idx!r^7dc*+wsnaqicl*+^*5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://sim-league-hub-3a340a973d16.herokuapp.com/'
+]
 
 
 # Application definition
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
