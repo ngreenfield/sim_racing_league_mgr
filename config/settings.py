@@ -37,7 +37,8 @@ SECRET_KEY = 'django-insecure-2!p&h2d^xg23s(qv&4+bsuz885idx!r^7dc*+wsnaqicl*+^*5
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'sim-league-hub-3a340a973d16.herokuapp.com'
+    'sim-league-hub-3a340a973d16.herokuapp.com',
+    '127.0.0.1',
 ]
 
 

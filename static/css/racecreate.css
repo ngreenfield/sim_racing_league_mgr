@@ -1,0 +1,51 @@
+.race-create {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.race-create h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #343a40;
+}
+
+form .mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control, .form-select {
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+button.btn-primary {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    background-color: #0d6efd;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background-color: #0b5ed7;
+    cursor: pointer;
+}

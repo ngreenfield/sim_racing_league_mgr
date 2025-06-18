@@ -13,7 +13,6 @@ config/.env
 # Django specific
 *.log
 db.sqlite3
-media/
 
 # IDE files
 .vscode/
