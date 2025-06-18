@@ -1,1 +1,1 @@
-web: guincorn config.wdgi
+web: guincorn config.wsgi
