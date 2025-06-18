@@ -1,0 +1,5 @@
+# Deploy to heroku
+git add -A 
+git commit -m "SOMETHING HERE" 
+git push -u heroku main        <- or master
+
