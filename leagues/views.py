@@ -1,17 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
 from .models import League, LeagueRegistration, Race, RaceResult, ChampionshipStanding
-from .forms import LeagueForm, RaceResultForm
+from .forms import LeagueForm, RaceResultForm, AddRaceForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
 from django.db import transaction
-from django.forms import modelformset_factory, inlineformset_factory
+from django.forms import modelformset_factory, inlineformset_factory, BaseModelFormSet
 from django.contrib.auth import get_user_model
+from django import forms 
 
 User = get_user_model()
 
@@ -27,7 +27,6 @@ class AdminRequiredMixin:
         if not hasattr(request.user, 'is_league_admin') or not request.user.is_league_admin():
             # Custom permission denied message
             messages.error(request, "You don't have permission to access this page. Admin access required.")
-            from django.core.exceptions import PermissionDenied
 
             raise PermissionDenied("Admin access required.")
         
@@ -126,6 +125,43 @@ def unregister_from_league(request, pk):
     return redirect('league_detail', pk=pk)
 
 
+# add races
+def add_race(request):
+    print(f"Request method: {request.method}")
+    
+    if request.method == 'POST':
+        print("Creating form with POST data")
+        try:
+            form = AddRaceForm(request.POST)
+            print("Form created successfully")
+            if form.is_valid():
+                form.save()
+                return redirect('league_list')
+            else:
+                print("Form errors:", form.errors)
+        except Exception as e:
+            print(f"Error creating form: {e}")
+            import traceback
+            traceback.print_exc()
+            return render(request, 'races/add_race.html', {'error': str(e)})
+    else:
+        print("Creating empty form")
+        try:
+            form = AddRaceForm()
+            print("Empty form created successfully")
+        except Exception as e:
+            print(f"Error creating empty form: {e}")
+            import traceback
+            traceback.print_exc()
+            return render(request, 'races/add_race.html', {'error': str(e)})
+
+    print("About to render template")
+    return render(request, 'races/add_race.html', {
+        'form': form,
+        'title': 'Create Race',
+        'button_text': 'Save Race',
+    })
+
 #### RACE RESULTS ####
 class RaceListView(ListView):
     model = Race
@@ -216,6 +252,15 @@ class LeagueStandingsView(DetailView):
         context['recent_races'] = recent_races
         
         return context
+    
+class RaceResultBaseFormSet(BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        self.race = kwargs.pop('race', None)
+        super().__init__(*args, **kwargs)
+    
+    def _construct_form(self, i, **kwargs):
+        kwargs['race'] = self.race
+        return super()._construct_form(i, **kwargs)
 
 
 class RaceCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
@@ -241,88 +286,155 @@ def calculate_points(position, dnf=False):
         return 0
     return POINTS_SYSTEM.get(position, 0)
 
+class RaceResultForm(forms.ModelForm):
+    class Meta:
+        model = RaceResult
+        fields = ['driver', 'car', 'position', 'fastest_lap_time', 'laps_completed', 'dnf']
+        # Remove 'points' from here since it's calculated automatically
 
-class RaceResultsCreateView(LoginRequiredMixin, AdminRequiredMixin, FormView):
+    def __init__(self, *args, **kwargs):
+        race = kwargs.pop('race', None)
+        super().__init__(*args, **kwargs)
+
+        if race:
+            # Filter drivers by league registration for the race's league
+            registered_drivers = LeagueRegistration.objects.filter(
+                league=race.league
+            ).values_list('user', flat=True)
+            
+            User = get_user_model()
+            self.fields['driver'].queryset = User.objects.filter(id__in=registered_drivers)
+            self.fields['car'].queryset = race.league.cars.all()
+
+
+class RaceResultsCreateView(LoginRequiredMixin, AdminRequiredMixin, DetailView):
     model = Race
     template_name = 'races/add_results.html'
     context_object_name = 'race'
-    form_class = RaceResultForm
     
-    # Override to use the race_id from URL
     def get_object(self, queryset=None):
-        # Get the race object by its pk from the URL (race_id)
         race_id = self.kwargs.get('race_id')
         return get_object_or_404(Race, pk=race_id)
     
-    def get_formset(self, race, extra=0):
-        """Factory method to create a formset for the race results."""
-        RaceResultFormSet = modelformset_factory(
+    def get_formset_class(self):
+        return modelformset_factory(
             RaceResult,
+            form=RaceResultForm,
+            formset=RaceResultBaseFormSet,
             fields=['driver', 'car', 'position', 'fastest_lap_time', 
                     'laps_completed', 'dnf'],
-            extra=extra,
+            extra=0,
             can_delete=True
         )
-        # Pre-populate with existing results or empty forms
+    
+    def get_formset(self, race, data=None):
+        FormSetClass = self.get_formset_class()
+        
+        # Get existing results
         existing_results = race.results.all()
+        
+        # Calculate how many extra forms we need
+        registered_drivers = race.league.participants.count()
+        existing_count = existing_results.count()
+        extra_needed = max(registered_drivers - existing_count, 0)
+        
+        # Create formset class with correct extra count
+        FormSetClass = modelformset_factory(
+            RaceResult,
+            form=RaceResultForm,
+            formset=RaceResultBaseFormSet,
+            fields=['driver', 'car', 'position', 'fastest_lap_time', 
+                    'laps_completed', 'dnf'],
+            extra=extra_needed,
+            can_delete=True
+        )
+        
         if existing_results.exists():
-            return RaceResultFormSet(queryset=existing_results)
+            queryset = existing_results
         else:
-            return RaceResultFormSet(queryset=RaceResult.objects.none())
+            queryset = RaceResult.objects.none()
+            
+        return FormSetClass(data=data, queryset=queryset, race=race)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         race = self.get_object()
         
-        # Get all registered drivers for this league
-        registered_drivers = race.league.participants.all()
-        
         # Create the formset
-        formset = self.get_formset(race, extra=registered_drivers.count())
+        formset = self.get_formset(race)
         
-        context['formset'] = formset
-        context['registered_drivers'] = registered_drivers
-        context['available_cars'] = race.league.cars.all()
+        context.update({
+            'formset': formset,
+            'registered_drivers': race.league.participants.all(),
+            'available_cars': race.league.cars.all(),
+            'race': race,
+        })
         
         return context
     
     def post(self, request, *args, **kwargs):
-        race = self.get_object()
+        self.object = self.get_object()
+        race = self.object
         
-        formset = self.get_formset(race)
+        formset = self.get_formset(race, data=request.POST)
         
         if formset.is_valid():
-            with transaction.atomic():
-                # Clear existing results for this race
-                race.results.all().delete()
-                
-                # Save new results
-                for form in formset:
-                    if form.cleaned_data and not form.cleaned_data.get('DELETE', False):
-                        result = form.save(commit=False)
-                        result.race = race
+            try:
+                with transaction.atomic():
+                    race.results.all().delete()
+                    
+                    saved_count = 0
+                    for form in formset:
+                        if form.cleaned_data and not form.cleaned_data.get('DELETE', False):
+                            if (form.cleaned_data.get('driver') and 
+                                form.cleaned_data.get('position')):
+                                
+                                result = form.save(commit=False)
+                                result.race = race
+                                
+                                # Calculate points automatically
+                                result.points = calculate_points(
+                                    result.position, 
+                                    result.dnf
+                                )
+                                
+                                result.save()
+                                saved_count += 1
+                    
+                    if saved_count > 0:
+                        race.is_completed = True
+                        race.save()
                         
-                        result.points = calculate_points(
-                            result.position, 
-                            result.dnf
+                        # Update championship standings
+                        update_championship_standings(race)
+                        
+                        messages.success(
+                            request, 
+                            f'Successfully saved {saved_count} race results for {race.name}!'
                         )
+                        return redirect('race_details', pk=race.pk)
+                    else:
+                        messages.warning(request, 'No valid results were submitted.')
                         
-                        result.save()
-                
-                # Mark race as completed
-                race.is_completed = True
-                race.save()
-                
-                # Update championship standings
-                update_championship_standings(race)
-                
-                messages.success(request, f'Race results for {race.name} have been saved successfully!')
-                return redirect('race_detail', pk=race.pk)
+            except Exception as e:
+                messages.error(request, f'Error saving results: {str(e)}')
+                print(f"Debug - Error saving results: {e}")  # For debugging
+        else:
+            # Detailed error reporting
+            messages.error(request, 'Please correct the errors below.')
+            for i, form in enumerate(formset):
+                if form.errors:
+                    for field, errors in form.errors.items():
+                        messages.error(request, f'Result {i+1} - {field}: {", ".join(errors)}')
+            
+            if formset.non_form_errors():
+                for error in formset.non_form_errors():
+                    messages.error(request, f'Form error: {error}')
         
-        # If formset is not valid, re-render with errors
         context = self.get_context_data()
         context['formset'] = formset
         return render(request, self.template_name, context)
+    
 
 class RaceResultsUpdateView(LoginRequiredMixin, AdminRequiredMixin, DetailView, FormView):
     model = Race
@@ -371,7 +483,6 @@ class RaceResultsUpdateView(LoginRequiredMixin, AdminRequiredMixin, DetailView, 
                     result.points = calculate_points(result.position, result.dnf)
                     result.save()
                 
-                # Handle deletions
                 for obj in formset.deleted_objects:
                     obj.delete()
                 
@@ -388,7 +499,6 @@ class RaceResultsUpdateView(LoginRequiredMixin, AdminRequiredMixin, DetailView, 
     
 
 def update_championship_standings(race):
-    # Get all drivers who have participated in this league
     league_drivers = User.objects.filter(
         raceresult__race__league=race.league
     ).distinct()

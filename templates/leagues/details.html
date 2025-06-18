@@ -60,6 +60,7 @@ League Details
         <button type="submit" class="btn btn-success">Register for League</button>
     </form>
     
+    <a href="{% url 'add_race' %}" class="btn btn-sm btn-success">Add New Race</a>
     <div>
         <a href="{% url 'league_update' league.id %}" class="btn btn-sm btn-primary">Edit League</a>
         <a href="{% url 'league_delete' league.id %}" class="btn btn-sm btn-danger">Delete League</a>

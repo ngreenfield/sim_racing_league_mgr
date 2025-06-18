@@ -14,6 +14,7 @@ urlpatterns=[
     path('races/<int:pk>/', views.RaceDetailView.as_view(), name='race_details'),
     path('races/create/', views.RaceCreateView.as_view(), name='race_create'),
     path('races/<int:race_id>/results/', views.RaceResultsCreateView.as_view(), name='race_results'),
+    path('races/add/', views.add_race, name='add_race'),
     
     # League standings
     path('leagues/<int:pk>/standings/', views.LeagueStandingsView.as_view(), name='league_standings'),

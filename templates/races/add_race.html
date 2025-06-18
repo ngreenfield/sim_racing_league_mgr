@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title|default:"Add New Race" }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 league-create">
+    <h1 class="mb-4">{{ title|default:"Add New Race" }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">League</label>
+            <select name="league" class="form-select" required>
+                <option value="">Select League</option>
+                {% for league in form.league.field.choices %}
+                    <option value="{{ league.0 }}">{{ league.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Track</label>
+            <select name="track" class="form-select" required>
+                <option value="">Select Track</option>
+                {% for track in form.track.field.choices %}
+                    <option value="{{ track.0 }}">{{ track.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Race Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Race Date</label>
+            <input type="datetime-local" name="race_date" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Number of Laps</label>
+            <input type="number" name="laps" class="form-control" value="1" min="1" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Weather Conditions</label>
+            <input type="text" name="weather_conditions" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ button_text|default:"Add Race" }}</button>
+    </form>
+</div>
+{% endblock %}

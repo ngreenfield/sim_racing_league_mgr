@@ -55,7 +55,6 @@ class LeagueRegistration(models.Model):
         return f"{self.user.username} registered for {self.league.title}"
 
 
-##### RACE RESULTS #####
 class Race(models.Model):
     league = models.ForeignKey(League, on_delete=models.CASCADE, related_name='races')
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
@@ -76,6 +75,7 @@ class Race(models.Model):
         return self.results.count()
 
 
+##### RACE RESULTS #####
 class RaceResult(models.Model):
     race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name='results')
     driver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

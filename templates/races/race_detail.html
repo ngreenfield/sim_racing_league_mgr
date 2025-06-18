@@ -121,7 +121,6 @@
                                 <th>Driver</th>
                                 <th>Car</th>
                                 <th>Laps</th>
-                                <th>Total Time</th>
                                 <th>Fastest Lap</th>
                                 <th>Points</th>
                                 <th>Status</th>
@@ -139,7 +138,6 @@
                                 <td>{{ result.driver.username }}</td>
                                 <td>{{ result.car.name|default:"-" }}</td>
                                 <td>{{ result.laps_completed }}</td>
-                                <td>{{ result.total_time|default:"-" }}</td>
                                 <td>{{ result.fastest_lap_time|default:"-" }}</td>
                                 <td><strong>{{ result.points }}</strong></td>
                                 <td>
