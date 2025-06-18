@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class LeagueForm(forms.ModelForm):
     class Meta:
         model = League
-        fields = ['title', 'cars', 'race_day', 'race_time',  'max_participants,' 'image']
+        fields = ['title', 'cars', 'race_day', 'race_time',  'max_participants', 'image']
 
 class RaceResultForm(forms.ModelForm):
     class Meta:
