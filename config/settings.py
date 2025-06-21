@@ -159,3 +159,9 @@ EMAIL_HOST_PASSWORD=env('SMTP_PASS')
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'  # Will be handled by your CustomLoginView
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
+
+
+# if running in heroku, use postgres db instead of sqlite
+if "DYNO" in os.environ:
+    import django_heroku
+    django_heroku.settings(locals())

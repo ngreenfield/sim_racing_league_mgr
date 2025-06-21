@@ -1,9 +1,12 @@
 asgiref==3.8.1
+dj-databse-url==3.0.0
 certifi==2025.4.26
 Django==5.2.1
+django-heroku==0.3.1
 django-environ==0.12.0
 gunicorn==23.0.0
 packaging==25.0
 pillow==11.2.1
+psycopg2==2.9.10
 sqlparse==0.5.3
 whitenoise==6.9.0
