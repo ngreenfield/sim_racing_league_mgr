@@ -1,5 +1,5 @@
 asgiref==3.8.1
-dj-databse-url==3.0.0
+dj-database-url==3.0.0
 certifi==2025.4.26
 Django==5.2.1
 django-heroku==0.3.1
