@@ -55,22 +55,52 @@ League Details
     <p><strong>Max Participants:</strong> {{ league.max_participants }}</p>
     <p><strong>Current Participants:</strong> {{ league.participants.count }}</p>
 
-    {% if user_registered %}
-        <button class="btn btn-secondary px-1" disabled>Already Registered</button>
-    {% else %}
-        <form method="POST" action="{% url 'register_for_league' league.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Register for League</button>
-        </form>
-    {% endif %}
+    <!-- Action Buttons Container -->
+    <div class="actions-container">
+        <!-- Registration Section -->
+        <div class="registration-section">
+            {% if user_registered %}
+                <button class="btn btn-secondary btn-large" disabled>
+                    <span class="btn-icon">✓</span>
+                    Already Registered
+                </button>
+            {% else %}
+                <form method="POST" action="{% url 'register_for_league' league.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-large btn-primary-action">
+                        <span class="btn-icon">🏁</span>
+                        Register for League
+                    </button>
+                </form>
+            {% endif %}
+        </div>
 
-    <br>
-    
-    <a href="{% url 'add_race' %}" class="btn btn-sm btn-success">Add New Race</a>
-    <div>
-        <a href="{% url 'league_update' league.id %}" class="btn btn-sm btn-primary">Edit League</a>
-        <a href="{% url 'league_delete' league.id %}" class="btn btn-sm btn-danger">Delete League</a>
-        <a href="{% url 'league_standings' league.pk %}" class="btn btn-sm btn-info">View Standings</a>
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="{% url 'league_standings' league.pk %}" class="btn btn-info btn-medium">
+                <span class="btn-icon">🏆</span>
+                View Standings
+            </a>
+        </div>
+
+        <!-- Admin Controls -->
+        <div class="admin-controls">
+            <h4 class="section-title">Admin Controls</h4>
+            <div class="admin-buttons">
+                <a href="{% url 'add_race' %}" class="btn btn-success btn-small">
+                    <span class="btn-icon">➕</span>
+                    Add Race
+                </a>
+                <a href="{% url 'league_update' league.id %}" class="btn btn-primary btn-small">
+                    <span class="btn-icon">✏️</span>
+                    Edit League
+                </a>
+                <a href="{% url 'league_delete' league.id %}" class="btn btn-danger btn-small">
+                    <span class="btn-icon">🗑️</span>
+                    Delete League
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

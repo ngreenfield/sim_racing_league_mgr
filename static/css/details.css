@@ -74,6 +74,169 @@
     font-weight: 500;
 }
 
+/* Improved Actions Container */
+.actions-container {
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Registration Section */
+.registration-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.registration-section form {
+    margin: 0;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+/* Admin Controls */
+.admin-controls {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.9;
+    color: #ffd700;
+}
+
+.admin-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Button Styles */
+.btn {
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Button Sizes */
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    min-width: 200px;
+    border-radius: 25px;
+}
+
+.btn-medium {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    min-width: 150px;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+/* Button Colors */
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    color: white;
+}
+
+/* Primary Action Button */
+.btn-primary-action {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+}
+
+.btn-primary-action:hover {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
+}
+
+/* Button Icons */
+.btn-icon {
+    margin-right: 0.5rem;
+    font-size: 1em;
+}
+
+/* Badge Colors */
 .bg-success { background: #10b981; }
 .bg-warning { background: #f59e0b; }
 .bg-info { background: #3b82f6; }
@@ -81,46 +244,6 @@
 .text-muted {
     opacity: 0.8;
     font-size: 0.9rem;
-}
-
-.btn {
-    margin-left: 5px;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    margin: 0.25rem;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    font-size: 1.1rem;
-    margin: 1.5rem;
-}
-
-.btn-primary { background: #3b82f6; color: white; }
-.btn-danger { background: #ef4444; color: white; }
-.btn-info { background: #06b6d4; color: white; }
-.btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
-
-.league-details form {
-    margin: 0;
-}
-
-.league-details > div:last-child {
-    padding: 1.5rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
 }
 
 /* Mobile responsive */
@@ -142,18 +265,33 @@
         margin-right: 1rem;
     }
     
-    .league-details > div:last-child {
+    .actions-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .admin-buttons {
         flex-direction: column;
-        padding: 1rem;
+        align-items: stretch;
     }
     
-    .btn {
+    .btn-small {
+        min-width: auto;
         width: 100%;
-        text-align: center;
+        margin-bottom: 0.5rem;
     }
     
-    .btn-success {
-        margin: 1rem;
+    .btn-medium,
+    .btn-large {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .quick-actions {
+        width: 100%;
+    }
+    
+    .registration-section {
+        margin-bottom: 1.5rem;
     }
 }
 

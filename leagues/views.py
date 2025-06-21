@@ -12,6 +12,7 @@ from django.db import transaction
 from django.forms import modelformset_factory, inlineformset_factory, BaseModelFormSet
 from django.contrib.auth import get_user_model
 from django import forms 
+from users.views import admin_required
 
 User = get_user_model()
 
@@ -141,6 +142,8 @@ def unregister_from_league(request, pk):
 
 
 # add races
+@login_required
+@admin_required
 def add_race(request):
     print(f"Request method: {request.method}")
     
