@@ -55,10 +55,16 @@ League Details
     <p><strong>Max Participants:</strong> {{ league.max_participants }}</p>
     <p><strong>Current Participants:</strong> {{ league.participants.count }}</p>
 
-    <form method="POST" action="{% url 'register_for_league' league.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success">Register for League</button>
-    </form>
+    {% if user_registered %}
+        <button class="btn btn-secondary px-1" disabled>Already Registered</button>
+    {% else %}
+        <form method="POST" action="{% url 'register_for_league' league.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Register for League</button>
+        </form>
+    {% endif %}
+
+    <br>
     
     <a href="{% url 'add_race' %}" class="btn btn-sm btn-success">Add New Race</a>
     <div>

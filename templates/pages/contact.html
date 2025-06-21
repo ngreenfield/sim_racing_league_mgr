@@ -12,6 +12,16 @@ Contact
     <h2 class="subtitle">Contact Us!</h2>
     <p>Feel free to contact us below!</p>
 
+    {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="post" id="contactForm" class="contact-form">
         {% csrf_token %}
 

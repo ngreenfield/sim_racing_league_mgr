@@ -59,6 +59,21 @@ class LeagueDetail(DetailView):
     model = League
     template_name = "leagues/details.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        league = self.get_object()
+
+        # Check if the user is registered for this league
+        user = self.request.user
+        context['user_registered'] = False
+        if user.is_authenticated:
+            context['user_registered'] = LeagueRegistration.objects.filter(
+                user=user,
+                league=league
+            ).exists()
+
+        return context
+
 
 class LeagueUpdate(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
     model = League

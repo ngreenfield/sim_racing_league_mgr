@@ -8,6 +8,17 @@
 
 {% block content %}
   <div class="container">
+
+    {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
    <h3>My League Registrations</h3>
     <div class="recent-registrations">
       {% if registered_leagues %}
