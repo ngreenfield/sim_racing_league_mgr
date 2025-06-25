@@ -20,13 +20,11 @@ User = get_user_model()
 class AdminRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            # Redirect to your actual login URL
             from django.shortcuts import redirect
-            login_url = '/users/login/'  # Direct path to your login
+            login_url = '/users/login/' 
             return redirect(f"{login_url}?next={request.get_full_path()}")
         
         if not hasattr(request.user, 'is_league_admin') or not request.user.is_league_admin():
-            # Custom permission denied message
             messages.error(request, "You don't have permission to access this page. Admin access required.")
 
             raise PermissionDenied("Admin access required.")
@@ -46,7 +44,6 @@ class LeagueCreate(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     success_url = reverse_lazy('league_list')
 
     def form_valid(self, form):
-        # Set the created_by field to the current user
         form.instance.created_by = self.request.user
         return super().form_valid(form)
 
